@@ -1,0 +1,103 @@
+﻿@model DimensionData.Models.Age
+
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Age Distribution</h2>
+
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description">
+       
+    </p>
+
+</figure>
+
+
+<script>
+    Highcharts.chart('container', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Employee Age Distribution'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: ['Age'],
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Population',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            }
+        },
+        tooltip: {
+            valueSuffix: ' Employees'
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: true
+                }
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -40,
+            y: 80,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor:
+                Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+            shadow: true
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: 'Under 20',
+            data: [@Html.DisplayFor(model => model.less20)]
+        }, {
+            name: '20-30',
+            data: [@Html.DisplayFor(model => model.less30)]
+        }, {
+            name: '30-40',
+            data: [@Html.DisplayFor(model => model.less40)]
+        }, {
+            name: '40-50',
+            data: [ @Html.DisplayFor(model => model.less50)]
+            }, {
+                name: 'Greater than 50',
+                data: [@Html.DisplayFor(model => model.great50)]
+            }]
+    });
+</script>
+
+<div> |
+    <a asp-action="Analysis">Back</a> |
+    <a asp-action="Cost">Next</a>
+</div>
+

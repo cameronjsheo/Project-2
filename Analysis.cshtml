@@ -1,0 +1,89 @@
+﻿@model DimensionData.Models.Gender
+
+@{
+    ViewData["Title"] = "getGender";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Data Analytics</h2>
+
+
+<script src="~/Chart/exporting.js"></script>
+<script src="~/Chart/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+<figure>
+    <div id="container"></div>
+    <p>
+
+    </p>
+</figure>
+
+<script>
+Highcharts.chart('container', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Gender Ratio of Employees'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            }
+        }
+    },
+    series: [{
+        name: 'Percent',
+        colorByPoint: true,
+        data: [{
+            name: 'Male',
+            y: @Html.DisplayFor(model => model.Male) ,
+        }, {
+            name: 'Female',
+            y: @Html.DisplayFor(model => model.Female),
+        }]
+    }]
+});
+</script>
+
+<div>
+    <h4>Total Count of Male/Female Employees</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Male)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Male)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Female)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Female)
+        </dd>
+    </dl>
+</div>
+<div>
+  
+   | <a asp-action="Age" asp-controller="Employee">Next</a> |
+</div>

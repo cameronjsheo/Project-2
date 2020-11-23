@@ -1,0 +1,110 @@
+﻿@model DimensionData.Models.Costs
+
+@{
+    ViewData["Title"] = "Cost";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <h2>Cost</h2>
+
+<script src="https://code.highcharts.com/highcharts.js">
+
+
+<</script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description">
+    </p>
+</figure>
+
+
+<script>
+
+    var chart= Highcharts.chart ('container', {
+
+    chart: {
+        type: 'column'
+    },
+
+    title: {
+        text: 'Total Costs of Employees'
+    },
+
+    subtitle: {
+        text: 'Click on the legend to hide the data.'
+    },
+
+    legend: {
+        align: 'right',
+        verticalAlign: 'middle',
+        layout: 'vertical'
+    },
+
+    xAxis: {
+        categories: ['Costs'],
+        labels: {
+            x: 0
+        }
+    },
+
+    yAxis: {
+        allowDecimals: true,
+        title: {
+            text: 'Amount'
+        }
+    },
+
+    series: [{
+        name: 'Monthly Cost',
+        data: [ @Html.DisplayFor(model => model.PerMonth)]
+    }, {
+        name: 'Daily Cost',
+        data: [@Html.DisplayFor(model => model.PerDay)]
+    }, {
+        name: 'Hourly Cost',
+        data: [@Html.DisplayFor(model => model.PerHour)]
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    align: 'center',
+                    verticalAlign: 'bottom',
+                    layout: 'horizontal'
+                },
+                yAxis: {
+                    labels: {
+                        align: 'left',
+                        x: 0,
+                        y: -5
+                    },
+                    title: {
+                        text: null
+                    }
+                },
+                subtitle: {
+                    text: null
+                },
+                credits: {
+                    enabled: false
+                }
+            }
+        }]
+    }
+});
+</script>
+
+
+<div>
+  
+    | <a asp-action="Age">Back</a> |
+</div>
